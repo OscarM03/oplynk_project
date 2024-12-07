@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply scroll-smooth;
+  }
+
+  body {
+    background-color: #efefef;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 3px;
+    border-radius: 50px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #e5e7eb;
+    border-radius: 50px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #fa7275;
+  }
+
+  /* Remove scrollbar */
+  .remove-scrollbar::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    border-radius: 0px;
+  }
+
+  .remove-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .remove-scrollbar::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 0px;
+  }
+
+  .remove-scrollbar::-webkit-scrollbar-thumb:hover {
+    /* background: #1e2238; */
+    background: transparent;
+  }
+
+  .recharts-responsive-container {
+    height: initial !important;
+  }
+  :root {
+    --radius: 0.5rem;
+  }
+}
+
+@layer utilities {
+  .container {
+    @apply mx-auto max-w-[1400px]
+  }
+  .pd-x {
+    @apply mx-[48px] max-lg:mx-[32px] max-sm:mx-[16px]
+  }
+  .flex-center {
+    @apply flex justify-center items-center
+  }
+  .h1 {
+    @apply text-[34px] leading-[42px] font-bold;
+  }
+  .otp-slot {
+    @apply p-2 text-[30px] font-medium !rounded-xl text-dodger-blue shadow-royal-blue flex justify-center
+  }
+  .btn {
+    @apply bg-gradient-to-r from-dodger-blue to-aqua-green px-2 py-1 rounded-md text-white font-medium
+  }
+  .textcolor {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-dodger-blue to-aqua-green
+  }
+  .bg {
+    @apply bg-gradient-to-r from-dodger-blue to-aqua-green
+  }
+  .form-input {
+    @apply border px-4 py-4 w-full rounded-xl shadow-lg
+  }
+}
