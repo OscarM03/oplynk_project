@@ -8,7 +8,7 @@ const Footer = () => {
 				<h1 className="text-xl font-extrabold textcolor">Oplynk</h1>
 			</div>
         <div>
-          <p className="text-sm">&copy; {new Date().getFullYear()} Oplynk All rights reserved</p>
+          <p className="text-xs sm:text-sm">&copy; {new Date().getFullYear()} Oplynk All rights reserved</p>
         </div>
       </footer>
     </section>
