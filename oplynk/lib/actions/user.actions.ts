@@ -17,6 +17,17 @@ const getUserByEmail = async (email: string) => {
   return result.total > 0 ? result.documents[0] : null; // Returns the first matching user document if found; otherwise, returns null.
 };
 
+export const getUserById = async (id: string) => {
+  const { databases } = await createAdminClient(); // Creates an admin client and retrieves the `databases` object for interacting with the Appwrite database.
+
+  const result = await databases.listDocuments(
+    appwriteconfig.databaseId, // Specifies the database ID from the configuration.
+    appwriteconfig.usersCollectionId, // Specifies the collection ID containing user documents.
+    [Query.equal("$id", [id])] // Queries the collection for documents where the `id` field matches the provided id.
+  );
+  return result.total > 0 ? result.documents[0] : null; // Returns the first matching user document if found; otherwise, returns null.
+};
+
 const handleError = (error: unknown, message: string) => {
   console.error(error, message); // Logs the error and a custom message to the console for debugging purposes.
   throw error; // Rethrows the error to ensure it can be handled by the calling function.
@@ -152,8 +163,8 @@ export const getCurrentUser = async () => {
 
 export const IsUserLoggedIn = async () => {
 	try {
-		const user = await getCurrentUser();
-    if (user.accountId) {
+		const accessToken = (await cookies()).get('appwrite-session');
+    if (accessToken) {
       return true;
     } else {
       return false;
