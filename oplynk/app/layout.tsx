@@ -5,6 +5,7 @@ import { Poppins } from 'next/font/google'
 import "./globals.css";
 import SignUpModal from "@/components/modals/SignUpModal";
 import LoginModal from "@/components/modals/LoginModal";
+import Footer from "@/components/footer/Footer";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -28,11 +29,14 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} font-poppins antialiased`}
       >
-        <Header/>
+        <Header />
         <MobileNav />
-        {children}
+        <div className="min-h-[100vh]">
+          {children}
+        </div>
         <SignUpModal />
         <LoginModal />
+        <Footer />
       </body>
     </html>
   );
