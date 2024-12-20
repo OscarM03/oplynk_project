@@ -1,6 +1,6 @@
 "use client";
 
-import {IsUserLoggedIn } from "@/lib/actions/user.actions";
+import {getCurrentUser, IsUserLoggedIn } from "@/lib/actions/user.actions";
 import Link from "next/link";
 import React from "react";
 import NavAction from "./NavAction";
@@ -20,10 +20,16 @@ const navLinks = [
 const Header = () => {
 
 	const [loggedIn, setLoggedIn] = useState<boolean>(false);
+	const [user, setUser] = useState<any>()
 
     useEffect(() => {
         const fetchUserId = async () => {
-            setLoggedIn(await IsUserLoggedIn());
+            const [user, userLoginState] = await Promise.all([
+				getCurrentUser(),
+				IsUserLoggedIn()
+			]);
+			setUser(user)
+			setLoggedIn(userLoginState)
         };
         fetchUserId();
     }, []);
@@ -44,7 +50,7 @@ const Header = () => {
 					))}
 				</ul>
 			</nav>
-			<NavAction loggedIn={loggedIn} />
+			<NavAction loggedIn={loggedIn} user={user}/>
 		</header>
 	);
 };
