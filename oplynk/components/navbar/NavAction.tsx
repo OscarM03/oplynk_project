@@ -10,10 +10,11 @@ import { logout } from '@/lib/actions/user.actions';
 
 interface NavActionProps {
     loggedIn: boolean | null;
+    user: any | null
 }
 
 const NavAction: React.FC<NavActionProps> = (
-    { loggedIn }
+    { loggedIn, user }
 ) => {
 
     const router = useRouter()
@@ -27,6 +28,14 @@ const NavAction: React.FC<NavActionProps> = (
         router.push('/')
     }
 
+    const handleProfileClick = () => {
+        if (loggedIn) {
+            router.push(`/profile/${user.$id}`);
+        } else {
+            signInModal.open();
+        }
+    }
+
     return (
         <div className="border flex justify-center items-center p-2 rounded-full space-x-1 ">
             <Image
@@ -34,6 +43,7 @@ const NavAction: React.FC<NavActionProps> = (
                 alt="profile"
                 width={24}
                 height={24}
+                onClick={handleProfileClick}
             />
             <Image
                 src="/assets/icons/menu.png"
