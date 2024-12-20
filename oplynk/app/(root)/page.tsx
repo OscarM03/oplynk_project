@@ -41,7 +41,7 @@ export default function Home({
 						</span>{" "}
 						<span className="inline-block mt-2"> Contributions</span>
 					</h1>
-					<p className="text-center mt-2 text-gray-700">
+					<p className="text-center mt-2 text-gray-700 font-medium">
 						Join a global network dedicated to creating value through impactful
 						contributions. Our platform ensures every effort counts, fostering
 						collaboration and accountability to drive real change. Together, we
