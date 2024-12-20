@@ -1,4 +1,4 @@
-import { createPayment, createWithdrawal } from '@/lib/actions/payments.action';
+import { createWithdrawal } from '@/lib/actions/payments.action';
 import { updateUserBalance } from '@/lib/actions/user.actions';
 import Image from 'next/image'
 import React, { useState } from 'react'
@@ -22,21 +22,23 @@ const PaymentsWithdrawal = ({
 
         try {
             const response = await createWithdrawal(email, amount);
+            console.log("Withdrawal response", response);
+            const status = response?.batch_header?.batch_status;
 
-            if (response &&
-                response.batch_header &&
-                (response.batch_header.batch_status === 'PENDING' || response.batch_header.batch_status === 'SUCCESS') &&
-                parseFloat(response.batch_header.amount.value) === amount &&
-                response.items[0]?.receiver === email) {
 
+            if (
+                status === 'PENDING' || status === 'SUCCESS'
+            ) {
                 updateUserBalance(-amount, user.$id);
                 alert('Withdrawal request sent successfully!');
+                closeForm();
             } else {
                 throw new Error('Withdrawal response validation failed.');
             }
-        } catch (error) {
+
+        } catch (error: any) {
             console.error('Error during withdrawal:', error.message);
-            alert('Failed to process the withdrawal request. Please try again later.');
+            alert('Failed to process the withdrawal request. Please try again later.,');
         } finally {
             setIsLoading(false);
         }
