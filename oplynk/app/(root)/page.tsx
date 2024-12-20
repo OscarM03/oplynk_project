@@ -29,7 +29,7 @@ export default function Home({
 	return (
 		<main className="">
 			<section className="container min-h-[60vh] md:min-h-[40vh] lg:min-h-[35vh] xl:min-h-[50vh]  flex flex-col justify-center items-center">
-				<div className="md:w-[85%] relative">
+				<div className="md:w-[85%] relative max-sm:px-1">
 					<h1 className="text-3xl sm:text-4xl text-center font-extrabold ">
 						Connecting The{" "}
 						<span className="textcolor text-4xl sm:text-5xl">Globe</span>
