@@ -19,7 +19,6 @@ import { useState } from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { sendEmailOTP, verifySecret } from "@/lib/actions/user.actions";
-import { useRouter } from "next/navigation";
 
 const OTPModal = ({
   email,
@@ -28,7 +27,6 @@ const OTPModal = ({
   email: string;
   accountId: string;
 }) => {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(true);
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +44,7 @@ const OTPModal = ({
       if (sessionId) {
         console.log("Redirecting to home...");
         setIsOpen(false);
-        router.push("/");
+        window.location.href = "/";
       }
 
     } catch {
