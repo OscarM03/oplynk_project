@@ -7,7 +7,6 @@ import MessageForm from "@/components/sessionpage/MessageForm";
 import UpdateSession from "@/components/sessionpage/UpdateSession";
 import { deleteSession, getSessionById } from "@/lib/actions/session.actions";
 import { getCurrentUser } from "@/lib/actions/user.actions";
-import { set } from "date-fns";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -17,8 +16,6 @@ interface SessionProps {
 const Session = ({
 	params
 }: SessionProps) => {
-	// const id = (await params).id;
-	// const sessionId = id;
 	const [sessionId, setSessionId] = useState('');
 	const [session, setSession] = useState<any>({});
 	const [isGiftsOpen, setIsGiftsOpen] = useState(false);
@@ -103,12 +100,14 @@ const Session = ({
 				)}
 			</section>
 			<section className="pd-x flex justify-between flex-col my-6 space-y-6">
-				<div className="border-4 border-dodger-blue rounded-lg">
+				{session.target > 0 && (
+					<div className="border-4 border-dodger-blue rounded-lg">
 					<div className="rounded-lg">
-						<ContributionChart target={session.target} contributed={session.contributed} />
+						<ContributionChart target={session.target} contributed={session.contributed} gifts={session.giftsReceived}/>
 					</div>
 					{/* <div className="sm:w-[40%] bg-white rounded-lg text-2xl font-extrabold p-6 text-center">Gifts Received</div> */}
 				</div>
+				)}
 				<div>
 					<div>
 						<h2 className="text-xl font-extrabold text-center ">Chat with other members</h2>
@@ -121,6 +120,8 @@ const Session = ({
 			{isGiftsOpen && (
 				<Gifts
 					closeGifts={() => setIsGiftsOpen(false)}
+					receiverId={session.user_Id}
+					sessionId={session.$id}
 				/>
 			)}
 
