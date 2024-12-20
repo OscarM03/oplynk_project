@@ -66,11 +66,11 @@ const Gifts = ({ closeGifts, receiverId, sessionId }: GiftProps) => {
 
     return (
         <section className="flex-center bg-black/60 fixed inset-0 z-50">
-            <div className="flex flex-col items-center border rounded-lg bg-white relative">
+            <div className=" flex flex-col items-center border rounded-lg bg-white relative">
                 <div className="bg w-full py-4 rounded-t-lg text-center font-bold">
                     <h2 className="text-white cursor-pointer text-xl">Gifts</h2>
                 </div>
-                <div className="flex flex-wrap p-4 space-x-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
                     {gifts.map((gift) => (
                         <div
                             key={gift.$id}
