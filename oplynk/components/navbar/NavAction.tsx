@@ -56,10 +56,6 @@ const NavAction: React.FC<NavActionProps> = (
                 <div className='absolute w-[160px] bg-white border-t-2 rounded-b-md top-[58px] right-0 flex flex-col items-center shadow-lg'>
                     {loggedIn ? (
                     <div>
-                        <div className='lg:hidden'>
-                            <NavLinks label="Sessions" onClick={() => console.log(userId)} />
-                            <NavLinks label="Gifts Library" onClick={() => console.log(userId)} />
-                        </div>
                         <NavLinks label="Logout" onClick={handleLogout} />
                     </div>
                     ) : (
