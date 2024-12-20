@@ -16,14 +16,16 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
-import { formatter } from "@/lib/utils";
+import { formatter, imageUrl } from "@/lib/utils";
+import Image from "next/image";
+import { appwriteconfig } from "@/lib/appwrite/config";
 
 // Calculate the percentage of the target achieved
 const calculatePercentage = (contributed: number, target: number) => {
 	return Math.min((contributed / target) * 100, 100); // Cap at 100%
 };
 
-const ContributionChart = ({ target, contributed }: { target: number; contributed: number }) => {
+const ContributionChart = ({ target, contributed, gifts }: { target: number; contributed: number; gifts: string[] }) => {
 	const percentage = calculatePercentage(contributed, target);
 
 	const chartData = [
@@ -108,9 +110,27 @@ const ContributionChart = ({ target, contributed }: { target: number; contribute
 				</CardFooter>
 			</CardContent>
 
-			<div className="w-[30%]  max-xl:w-full text-center max-xl:mt-6">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, sunt?
+			<div className="w-[30%] max-xl:w-full text-center max-xl:mt-6 ">
+				<h1 className="text-black font-extrabold text-2xl">Gifts Received</h1>
+				<div className="flex justify-center space-x-2 overflow-hidden overflow-x-scroll remove-scrollbar mt-4">
+				{gifts.length > 0 && (
+					gifts.map((gift) => (
+						<div
+							key={gift}
+							className="flex-none flex items-center gap-2">
+							<Image
+								src={imageUrl(appwriteconfig.giftsBucketId, gift)}
+								alt="gift"
+								width={60}
+								height={60}
+								className="transform transition duration-300 hover:scale-110"
+							/>
+						</div>
+					))
+				)}
+				</div>
 			</div>
+
 
 		</Card>
 	);
