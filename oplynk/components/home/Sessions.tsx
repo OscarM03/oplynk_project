@@ -7,6 +7,8 @@ import { getSessions } from '@/lib/actions/session.actions';
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import useSignInModal from '@/hooks/useSignInModal';
+import { appwriteconfig } from '@/lib/appwrite/config';
+import { imageUrl } from '@/lib/utils';
 
 interface sessionProps {
     params: string | null;
@@ -99,7 +101,7 @@ const Sessions = ({ params, newSession } : sessionProps) => {
                                 {session.user.username}
                             </h1>
                             <Image
-                                src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg"
+                                src={imageUrl(appwriteconfig.bucketId, session.user.profileImageId)}
                                 alt="avatar"
                                 width={40}
                                 height={40}
