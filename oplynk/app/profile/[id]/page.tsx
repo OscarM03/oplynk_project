@@ -82,7 +82,7 @@ const Profile: React.FC<ProfileProps> = ({ params }) => {
                         <button className='btn' onClick={() => setIsDepositFormOpen(true)}>Deposit</button>
                         <button className='btn' onClick={() => setIsWithdrawFormOpen(true)}>Withdraw</button>
                     </div>
-                    <div className='bg-white w-[90%] my-10 text-center border-4 border-dodger-blue rounded-lg p-4'>
+                    <div className='bg-white w-[90%] max-sm:w-full my-10 text-center border-4 border-dodger-blue rounded-lg p-4'>
                         <h1 className='text-black text-xl font-extrabold'>My Sessions</h1>
                         <div className="my-10 grid grid-cols-1 xl:grid-cols-2 gap-10">
                             {sessions.map((session) => (
