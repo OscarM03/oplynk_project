@@ -41,6 +41,13 @@ const MessageForm = ({ sessionId }: { sessionId: string }) => {
             }
         }
         fetchMessages(sessionId)
+
+        const interval = setInterval(() => {
+            fetchMessages(sessionId);
+        }, 50000); 
+    
+        return () => clearInterval(interval);
+
     }, [sessionId]);
 
     const handleMessageEdit = async (messageId: string) => {
