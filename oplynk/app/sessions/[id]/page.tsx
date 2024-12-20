@@ -35,8 +35,6 @@ const Session = ({
 				])
 				setSession(fetchedSession);
 				setUser(currentUser);
-				console.log("Session", fetchedSession);
-				console.log("User", currentUser);
 			} catch (error) {
 				console.error("Error fetching session", error);
 			}
