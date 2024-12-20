@@ -16,7 +16,6 @@ const SessionForm: React.FC<sessionFormProps> = (
     const [sessionCategory, setSessionCategory] = useState('')
     const [sessionDescription, setSessionDescription] = useState('')
     const [target, setTarget] = useState(0)
-    const [sessionImage, setSessionImage] = useState<File>(null)
     const [isLoading, setIsLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
 
@@ -29,7 +28,6 @@ const SessionForm: React.FC<sessionFormProps> = (
             category: sessionCategory,
             description: sessionDescription,
             target,
-            image: sessionImage
         }
         try {
             const session = await createSession(formData)
@@ -48,14 +46,13 @@ const SessionForm: React.FC<sessionFormProps> = (
 
     return (
         <section className="flex-center bg-black/60 fixed inset-0 z-50">
-            <div className='flex flex-col items-center border rounded-lg bg-white relative'>
+            <div className='flex flex-col items-center border rounded-lg bg-white w-[90%] md:w-[80%] lg:w-[500px] h-auto relative'>
                 <div className='bg w-full py-4 rounded-t-lg text-center font-bold'>
                     <h2 className="text-white cursor-pointer  text-xl">Create Session</h2>
                 </div>
-                <form onSubmit={handleSubmit} className='flex flex-col space-y-4 p-4'>
+                <form onSubmit={handleSubmit} className='flex flex-col space-y-4 p-4 w-full'>
                     <input type='text' placeholder='Enter Your Session Title' onChange={(e) => setSessionTitle(e.target.value)} className='form-input' />
                     <input type='text' placeholder='Enter Your Session Category' onChange={(e) => setSessionCategory(e.target.value)} className='form-input' />
-                    <input type="file" accept='image/*' onChange={(e) => setSessionImage(e.target.files[0])} className='form-input bg-white' />
                     {type === 'group-fund' && (
                         <input type='number' placeholder='Enter Your Traget Amount' onChange={(e) => setTarget(parseInt(e.target.value) || 0)} className='form-input' />
                     )}
