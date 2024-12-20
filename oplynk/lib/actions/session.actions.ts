@@ -5,8 +5,6 @@ import { createAdminClient } from "../appwrite";
 import { appwriteconfig } from "../appwrite/config";
 import { getCurrentUser } from "./user.actions";
 import { parseStringify } from "../utils";
-import { fileURLToPath } from "url";
-import { title } from "process";
 
 export const uploadFile = async ({ image }: { image: File }): Promise<string> => {
     const { storage } = await createAdminClient();
@@ -42,7 +40,6 @@ interface sessionProps {
     description: string;
     category: string;
     target: number;
-    image: File;
 }
 
 export const createSession = async ({
@@ -50,11 +47,9 @@ export const createSession = async ({
     description,
     category,
     target,
-    image,
 }: sessionProps) => {
     const { databases } = await createAdminClient();
     const user = await getCurrentUser();
-    const imageId = await uploadFile({ image });
 
     try {
         const session = await databases.createDocument(
@@ -66,7 +61,6 @@ export const createSession = async ({
                 description,
                 category,
                 target,
-                image: imageId,
                 user_Id: user.$id,
             }
         )
@@ -147,11 +141,31 @@ export const searchSessions = async (query: string, page: number, limit: number)
     }
 }
 
+export const getUserSessions = async (userId: string) => {
+    const { databases } = await createAdminClient()
+    try {
+        const results = await databases.listDocuments(
+            appwriteconfig.databaseId,
+            appwriteconfig.sessionsCollectionId,
+            [
+                Query.equal('user_Id', userId),
+                Query.orderDesc('$createdAt')
+            ]
+        )
+        return results.documents
+    } catch (error) {
+        console.log(error, "Failed to get session");
+        throw new Error("Failed to get Session");
+    }
+
+}
+
 interface updateSessionProps {
     title: string;
     description: string;
     category: string;
     target: number;
+    sessionId: string;
 }
 
 export const updateSession = async ({
@@ -160,7 +174,7 @@ export const updateSession = async ({
     category,
     target,
     sessionId,
-}: updateSessionProps & { sessionId: string }) => {
+}: updateSessionProps) => {
     const { databases } = await createAdminClient();
 
     try {
@@ -192,5 +206,40 @@ export const deleteSession = async (sessionId: string) => {
         )
     } catch (error) {
         console.log(error, "Failed to delete session");
+    }
+}
+
+export const updateSessionContributions = async (sessionId: string, amount: number, giftId: string) => {
+    const { databases } = await createAdminClient();
+
+    try {
+
+        const userDoc = await databases.getDocument(
+            appwriteconfig.databaseId,
+            appwriteconfig.sessionsCollectionId,
+            sessionId
+        );
+
+
+        const currentContributions = userDoc.contributed || 0;
+        const updatedContributions = currentContributions + amount;
+
+        const currentGifts = userDoc.giftsReceived || [];
+        const updatedGifts = [...currentGifts, giftId];
+
+        const updatedSession = await databases.updateDocument(
+            appwriteconfig.databaseId,
+            appwriteconfig.sessionsCollectionId,
+            sessionId,
+            {
+                contributed: updatedContributions,
+                giftsReceived: updatedGifts,
+            }
+        );
+
+        return parseStringify(updatedSession);
+    } catch (error) {
+        console.error("Error updating the Conributions:", { error });
+        throw new Error("Failed to update Contributions.");
     }
 }
