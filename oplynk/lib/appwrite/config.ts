@@ -10,4 +10,7 @@ export const appwriteconfig = {
   bucketId: process.env.NEXT_PUBLIC_APPWRITE_BUCKET!,
   giftsBucketId: process.env.NEXT_PUBLIC_APPWRITE_GIFTS_BUCKET!,
   secretKey: process.env.NEXT_APPWRITE_KEY!,
+
+  paypalClientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!,
+  paypalClientSecret: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_SECRET!,
 }
