@@ -30,9 +30,9 @@ const SuccessPage = () => {
                 setStatus('Payment confirmed successfully.');
                 setTransactionDetails(paymentDetails);
 
-                const transactionAmount = parseFloat(response.transactions[0].amount.total);
+                const transactionAmount = parseFloat(paymentDetails.transactions[0].amount.total);
 
-                await updateUserBalance(transactionAmount);
+                await updateUserBalance(transactionAmount, user.$id);
             } catch (err) {
                 console.error('Error confirming payment:', err);
                 setError('Failed to confirm payment.');
