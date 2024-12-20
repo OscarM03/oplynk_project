@@ -53,7 +53,7 @@ const NavAction: React.FC<NavActionProps> = (
                 onClick={() => setIsOpen(!isOpen)}
             />
             {isOpen && (
-                <div className='absolute w-[160px] bg-white border-t-2 rounded-b-md top-[58px] right-0 flex flex-col items-center shadow-lg'>
+                <div className='absolute w-[160px] bg-white border-t-2 rounded-b-md top-[58px] right-0 flex flex-col items-center shadow-lg z-50'>
                     {loggedIn ? (
                     <div>
                         <NavLinks label="Logout" onClick={handleLogout} />
