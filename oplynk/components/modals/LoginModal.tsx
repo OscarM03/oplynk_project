@@ -66,7 +66,7 @@ const LoginModal = () => {
                         />
                     )}
                 </button>
-                <h2 className='text-center text-gray-700 '>Don't have an account, <span className='text-lg text-dodger-blue font-medium cursor-pointer' onClick={handleSignUpBtn}>Sign Up</span></h2>
+                <h2 className='text-center text-gray-700 '>Don&apos;t have an account, <span className='text-lg text-dodger-blue font-medium cursor-pointer' onClick={handleSignUpBtn}>Sign Up</span></h2>
             </form>
         </>
     )
