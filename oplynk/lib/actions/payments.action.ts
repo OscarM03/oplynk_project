@@ -1,10 +1,9 @@
 "use server";
 
 import axios from 'axios';
-import { appwriteconfig } from '../appwrite/config';
 
 
-const PAYPAL_API_URL = 'https://api.sandbox.paypal.com';
+const PAYPAL_API_URL = 'https://api.paypal.com';
 console.log('CLIENT_ID:', process.env.PAYPAL_CLIENT_ID);
 console.log('CLIENT_SECRET:', process.env.PAYPAL_CLIENT_SECRET);
 
@@ -16,7 +15,7 @@ const getPayPalAccessToken = async () => {
         const base64Credentials = Buffer.from(credentials).toString('base64');
 
         const response = await axios.post(
-            'https://sandbox.paypal.com/v1/oauth2/token',
+            'https://api.paypal.com/v1/oauth2/token',
             'grant_type=client_credentials',
             {
                 headers: {
